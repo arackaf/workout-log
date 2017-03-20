@@ -1,3 +1,1 @@
-alert('hello');
-
 export default {};
