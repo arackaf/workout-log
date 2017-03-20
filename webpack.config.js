@@ -42,7 +42,7 @@ module.exports = {
     ].filter(p => p),
     devServer: {
         proxy: {
-            "/action": "http://localhost:3000",
+            "/enter": "http://localhost:3000",
         }
     }
 };
