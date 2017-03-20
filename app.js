@@ -2,16 +2,6 @@
 
 require('regenerator/runtime');
 
-require('./app-helpers/promiseUtils');
-
-require('./private/awsS3Credentials');
-
-var _dao = require('./dataAccess/dao');
-
-var _dao2 = _interopRequireDefault(_dao);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 var express = require('express');
 var app = express();
 var path = require("path");
@@ -19,8 +9,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var fs = require('fs');
-var mkdirp = require('mkdirp');
-var exif = require('exif-parser');
 var compression = require('compression');
 
 var hour = 3600000;
@@ -34,8 +22,6 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 app.use(cookieParser());
 app.use(session({ secret: 'adam_booklist', saveUninitialized: true, resave: true }));
 
-var expressWs = require('express-ws')(app);
-
 app.use('/static/', express.static(__dirname + '/static/'));
 app.use('/node_modules/', express.static(__dirname + '/node_modules/'));
 app.use('/enter/', express.static(__dirname + '/enter/'));
@@ -47,13 +33,16 @@ app.get('/favicon.ico', function (request, response) {
     response.sendFile(path.join(__dirname + '/favicon.ico'));
 });
 
+app.get('/enter', function (request, response) {
+    response.sendFile(path.join(__dirname + '/enter/enter.htm'));
+});
+
 process.on('uncaughtException', error);
 process.on('unhandledRejection', error);
 process.on('exit', shutdown);
 process.on('SIGINT', shutdown);
 
 function shutdown() {
-    _dao2.default.shutdown();
     process.exit();
 }
 
@@ -63,3 +52,5 @@ function error(err) {
         logger.log('exception', err);
     } catch (e) {}
 }
+
+app.listen(process.env.PORT || 3000);
