@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {observer} from 'mobx-react';
 
 @observer
 export class BoundInput extends Component {
@@ -61,9 +62,9 @@ export default props => {
     let {model, name, ...rest} = props;
 
     return (
-        <DatePicker onSelect={value => model[name] = value}>
+        <DatePickerRaw onSelect={value => model[name] = value}>
             <BoundInput {...rest} model={model} name={name} />
-        </DatePicker>
+        </DatePickerRaw>
     )
 };
 

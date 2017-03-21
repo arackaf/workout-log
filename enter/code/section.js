@@ -8,7 +8,7 @@ import Select, {Creatable} from 'react-select';
 class Line extends Component {
     componentDidMount() {
         this.input.focus();
-    }    
+    }
     render() {
         let {store} = this.props;
         return (
@@ -38,17 +38,21 @@ export default class Section extends Component {
         let {store} = this.props;
         return (
             <div className='panel panel-default' style={{float: 'left', padding: '15px', margin: '5px', minWidth: '350px'}}>
+                <FadeList>
+                    {store.lines.map((l, i) => <Line store={l}></Line>)}
+                </FadeList>
+                <button onClick={store.addLine} className='btn btn-primary pull-right'>Add <i className='fa fa-fw fa-plus'></i></button>
+                <br />
+                <hr/>
                 <div className="form-group">
-                    <Creatable onChange={this.handleSelectChange} value={this.state.tags} multi={true} options={options} />
+                    <input className="form-control" rows="3" placeholder="Name" />
+                </div>
+                <div className="form-group">
+                    <Creatable placeholder="Tag this section" onChange={this.handleSelectChange} value={this.state.tags} multi={true} options={options} />
                 </div>
                 <div className="form-group">
                     <textarea className="form-control" rows="3" placeholder="Notes" />
                 </div>
-                <FadeList>
-                    {store.lines.map((l, i) => <Line store={l}></Line>)}
-                </FadeList>
-                <hr/>
-                <button onClick={store.addLine} className='btn btn-primary pull-right'>Add <i className='fa fa-fw fa-plus'></i></button>
             </div>
         );
     }
