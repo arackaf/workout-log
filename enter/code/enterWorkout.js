@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import Section from './section';
+import {FadeList} from 'util/fade';
 
 @observer
 export default class EnterWorkout extends Component {
@@ -15,9 +16,9 @@ export default class EnterWorkout extends Component {
                     <br />
                     <br />
 
-                    <div>
+                    <FadeList>
                         {store.sections.map(s => <Section store={s} />)}
-                    </div>
+                    </FadeList>
 
                     <br style={{clear: 'both'}} />
                 </div>

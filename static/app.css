@@ -1,0 +1,17 @@
+.react-fade-enter {
+    opacity: 0.01;
+}
+
+.react-fade-enter.react-fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.react-fade-leave {
+    opacity: 1;
+}
+
+.react-fade-leave.react-fade-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}
