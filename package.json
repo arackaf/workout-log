@@ -14,9 +14,9 @@
     "start": "node ./app.js"
   },
   "dependencies": {
-    "classnames": "2.2.5",
     "blueimp-md5": "2.3.0",
     "body-parser": "1.13.2",
+    "classnames": "2.2.5",
     "compression": "1.6.2",
     "cookie-parser": "1.4.0",
     "easy-express-controllers": "0.2.1",
@@ -34,6 +34,7 @@
     "react-dom": "15.4.2",
     "react-height": "2.1.1",
     "react-motion": "0.4.7",
+    "react-select": "^1.0.0-rc.3",
     "regenerator": "0.8.36",
     "simple-react-bootstrap": "0.1.18",
     "ws": "1.0.1"
