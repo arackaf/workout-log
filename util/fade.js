@@ -4,7 +4,7 @@ import CSSTransitionGroup from 'react-addons-css-transition-group';
 const FadeList = ({children}) =>
     <CSSTransitionGroup
         transitionName="react-fade"
-        transitionEnterTimeout={500}
+        transitionEnterTimeout={300}
         transitionLeaveTimeout={300}>
         {children}
     </CSSTransitionGroup>
@@ -12,7 +12,7 @@ const FadeList = ({children}) =>
 export default ({isShowing, children}) =>
     <CSSTransitionGroup
         transitionName="react-fade"
-        transitionEnterTimeout={500}
+        transitionEnterTimeout={300}
         transitionLeaveTimeout={300}>
         {isShowing ? children : null}
     </CSSTransitionGroup>
