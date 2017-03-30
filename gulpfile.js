@@ -20,7 +20,8 @@ let babelOptions = {
 
 var gulpTargets = [
     'enter',
-    'controllers'
+    'controllers',
+    'dataAccess'
 ].map(f => `./` + f + '/**/*.es6')
 gulpTargets.push('./*.es6');
 

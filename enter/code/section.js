@@ -27,12 +27,8 @@ var options = [
 
 @observer
 export default class Section extends Component {
-    state = {tags: []};
     componentDidMount() {
         this.name.focus();
-    }
-    handleSelectChange = value => {
-        this.setState({ tags: value });
     }
     render() {
         let {store} = this.props;
@@ -42,7 +38,7 @@ export default class Section extends Component {
                     <input ref={el => this.name = el} className="form-control" rows="3" placeholder="Name" />
                 </div>
                 <div className="form-group">
-                    <Creatable placeholder="Tag this section" onChange={this.handleSelectChange} value={this.state.tags} multi={true} options={options} />
+                    <Creatable placeholder="Tag this section" onChange={store.setTags} value={store.rawTags} multi={true} options={options} />
                 </div>
 
                 <FadeList>

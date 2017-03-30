@@ -14,20 +14,16 @@ var options = [
 
 @observer
 export default class EnterWorkout extends Component {
-    state = {tags: []}
-    handleSelectChange = value => {
-        this.setState({ tags: value });
-    }
     render() {
         let {store} = this.props;
         return (
             <div>
                 <div className='panel panel-default' style={{ 'margin': '15px', padding: '15px', minHeight: '500px' }}>
-                    <h1>Enter a workout</h1>
-                    <hr />
+                    <h1 style={{marginTop: 0, marginBottom: 0}}>Enter a workout</h1>
+                    <hr style={{marginTop: 0}} />
                     <BoundInput placeholder='Name' className='form-control' model={store} name='name' />
                     <br />
-                    <Creatable placeholder="Tag this workout" onChange={this.handleSelectChange} value={this.state.tags} multi={true} options={options} />
+                    <Creatable placeholder="Tag this workout" onChange={store.setTags} value={store.rawTags} multi={true} options={options} />
                     <br />
                     <DatePicker style={{width: '100px'}} className='form-control' model={store} name='date' />
                     <br />

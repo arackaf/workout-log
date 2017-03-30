@@ -1,6 +1,6 @@
 import React from 'react';
 import EnterWorkout from './code/enterWorkout';
-import EnterWorkoutStore from './code/enterWorkoutStore';
+import WorkoutStore from './code/workoutStore';
 import {render} from 'react-dom';
 
-render(<EnterWorkout store={new EnterWorkoutStore()} />, document.getElementById('react_drop'));
+render(<EnterWorkout store={new WorkoutStore()} />, document.getElementById('react_drop'));
