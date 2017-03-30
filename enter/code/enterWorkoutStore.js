@@ -8,4 +8,7 @@ export default class EnterWorkoutStore {
     @observable date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
     @observable name = '';
     @action addSection = () => this.sections.push(new SectionStore());
+    @action save = () => {
+        ajaxUtil.post('/workout/save');
+    }
 }

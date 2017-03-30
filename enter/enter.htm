@@ -1,5 +1,15 @@
 <html>
     <head>
+        <script>
+            if (typeof fetch !== 'undefined'){
+                var fetchPolyfill = document.createElement('script');
+                fetchPolyfill.setAttribute('src','/util/unfetch.js');
+                document.head.appendChild(fetchPolyfill);
+                fetchPolyfill.onload = function(){
+                    window.fetch = unfetch;
+                }
+            }
+        </script>        
         <script type="text/javascript" src="/static/jquery.js"></script>
         <script type="text/javascript" src="/static/jquery-ui.min.js"></script>
 
@@ -14,6 +24,7 @@
     <body>
         <div id='react_drop'></div>
 
+        <script type="text/javascript" src="/util/ajaxUtil.js"></script>
         <script type="text/javascript" src="/dist/enter-bundle.js"></script>
     </body>
 </html>

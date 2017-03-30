@@ -40,6 +40,7 @@ export default class EnterWorkout extends Component {
                     </FadeList>
 
                     <br style={{clear: 'both'}} />
+                    <button onClick={store.save} className='btn btn-primary'>Save</button>
                 </div>
             </div>
         );

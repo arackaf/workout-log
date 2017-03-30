@@ -26,8 +26,8 @@ app.use('/node_modules/', express.static(__dirname + '/node_modules/'));
 app.use('/enter/', express.static(__dirname + '/enter/'));
 
 
-//var easyControllers = require('easy-express-controllers').easyControllers;
-//easyControllers.createAllControllers(app, { fileTest: f => !/-es6.js$/.test(f) });
+var easyControllers = require('easy-express-controllers').easyControllers;
+easyControllers.createAllControllers(app);
 
 app.get('/favicon.ico', function (request, response) {
     response.sendFile(path.join(__dirname + '/favicon.ico'));

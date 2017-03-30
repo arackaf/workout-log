@@ -43,6 +43,7 @@ module.exports = {
     devServer: {
         proxy: {
             "/enter": "http://localhost:3000",
+            "/workout": "http://localhost:3000",
         }
     }
 };

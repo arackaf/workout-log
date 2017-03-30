@@ -19,7 +19,8 @@ let babelOptions = {
 };
 
 var gulpTargets = [
-    'enter'
+    'enter',
+    'controllers'
 ].map(f => `./` + f + '/**/*.es6')
 gulpTargets.push('./*.es6');
 
