@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.use(cookieParser());
 app.use(session({ secret: 'adam_booklist', saveUninitialized: true, resave: true }));
 
+app.use('/util/', express.static(__dirname + '/util/'));
 app.use('/dist/', express.static(__dirname + '/dist/'));
 app.use('/static/', express.static(__dirname + '/static/'));
 app.use('/node_modules/', express.static(__dirname + '/node_modules/'));
