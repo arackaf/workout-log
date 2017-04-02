@@ -5,6 +5,8 @@ import {FadeList} from 'util/fade';
 import DatePicker, {BoundInput} from 'util/datepicker';
 import Select, {Creatable} from 'react-select';
 
+import WorkoutTagStore from 'util/WorkoutTagStore';
+
 var options = [
 	{ value: 1, label: 'Strength' },
 	{ value: 2, label: 'Die' },
@@ -23,7 +25,7 @@ export default class EnterWorkout extends Component {
                     <hr style={{marginTop: 0}} />
                     <BoundInput placeholder='Name' className='form-control' model={store} name='name' />
                     <br />
-                    <Creatable placeholder="Tag this workout" onChange={store.setTags} value={store.rawTags} multi={true} options={options} />
+                    <Creatable placeholder="Tag this workout" onChange={store.setTags} value={store.rawTags} multi={true} options={WorkoutTagStore.allTags} />
                     <br />
                     <DatePicker style={{width: '100px'}} className='form-control' model={store} name='date' />
                     <br />

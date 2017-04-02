@@ -1,9 +1,16 @@
 import {action, observable, computed, toJS} from 'mobx';
 import SectionStore from './sectionStore';
 
+import WorkoutTagStore from 'util/WorkoutTagStore';
+
 const today = new Date();
 
-export default class WorkoutStore {    
+export default class WorkoutStore {
+    constructor() {
+        setTimeout(() => WorkoutTagStore.addTag(1, 'Hello'), 3000);
+        setTimeout(() => WorkoutTagStore.addTag(2, 'World'), 6000);
+    }
+
     @observable name = '';
     @observable date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
     @observable tags = [];
@@ -16,7 +23,7 @@ export default class WorkoutStore {
         let sections = workout.sections;
         delete workout.sections;
 
-        ajaxUtil.post('/workout/save', {workout, sections});
+        //ajaxUtil.post('/workout/save', {workout, sections});
 
         console.log(workout);
         console.log(sections);
