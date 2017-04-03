@@ -2,5 +2,11 @@ import React from 'react';
 import EnterWorkout from './code/enterWorkout';
 import WorkoutStore from './code/workoutStore';
 import {render} from 'react-dom';
+import {Provider} from 'mobx-react';
 
-render(<EnterWorkout store={new WorkoutStore()} />, document.getElementById('react_drop'));
+import workoutTagStore from 'util/WorkoutTagStore';
+
+render(
+    <Provider workoutTagStore={workoutTagStore}>
+        <EnterWorkout store={new WorkoutStore()} />
+    </Provider>, document.getElementById('react_drop'));

@@ -8,7 +8,9 @@ const today = new Date();
 export default class WorkoutStore {
     constructor() {
         setTimeout(() => WorkoutTagStore.addTag(1, 'Hello'), 3000);
-        setTimeout(() => WorkoutTagStore.addTag(2, 'World'), 6000);
+        setTimeout(() => WorkoutTagStore.addTag(2, 'World'), 3500);
+        setTimeout(() => WorkoutTagStore.addTag(3, 'hello'), 4000);
+        setTimeout(() => WorkoutTagStore.addTag(4, 'world'), 4500);
     }
 
     @observable name = '';
