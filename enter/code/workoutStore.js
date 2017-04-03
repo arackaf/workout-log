@@ -27,6 +27,7 @@ export default class WorkoutStore {
         delete workout.sections;
 
         workout.tags = adjustTags(workout.tags);
+        sections.forEach(s => s.tags = adjustTags(s.tags));
 
         //debugger;
 
