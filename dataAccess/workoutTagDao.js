@@ -13,10 +13,6 @@ var _dao = require('./dao');
 
 var _dao2 = _interopRequireDefault(_dao);
 
-var _workoutTagDao = require('./workoutTagDao');
-
-var _workoutTagDao2 = _interopRequireDefault(_workoutTagDao);
-
 var _mongodb = require('mongodb');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -29,50 +25,35 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var WorkoutDAO = function (_DAO) {
-    _inherits(WorkoutDAO, _DAO);
+var WorkoutTagDAO = function (_DAO) {
+    _inherits(WorkoutTagDAO, _DAO);
 
-    function WorkoutDAO() {
-        _classCallCheck(this, WorkoutDAO);
+    function WorkoutTagDAO() {
+        _classCallCheck(this, WorkoutTagDAO);
 
-        return _possibleConstructorReturn(this, (WorkoutDAO.__proto__ || Object.getPrototypeOf(WorkoutDAO)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (WorkoutTagDAO.__proto__ || Object.getPrototypeOf(WorkoutTagDAO)).apply(this, arguments));
     }
 
-    _createClass(WorkoutDAO, [{
-        key: 'save',
+    _createClass(WorkoutTagDAO, [{
+        key: 'addTag',
         value: function () {
-            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(workout, sections) {
-                var db, workoutTagDao, newTags;
+            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(tag) {
+                var db;
                 return regeneratorRuntime.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 _context.next = 2;
-                                return _get(WorkoutDAO.prototype.__proto__ || Object.getPrototypeOf(WorkoutDAO.prototype), 'open', this).call(this);
+                                return _get(WorkoutTagDAO.prototype.__proto__ || Object.getPrototypeOf(WorkoutTagDAO.prototype), 'open', this).call(this);
 
                             case 2:
                                 db = _context.sent;
-                                workoutTagDao = new _workoutTagDao2.default();
-                                newTags = workout.tags.filter(function (t) {
-                                    return !t._id;
-                                });
-                                _context.next = 7;
-                                return Promise.all(newTags.map(function (t) {
-                                    return workoutTagDao.addTag(t);
-                                }));
 
-                            case 7:
-                                _context.next = 9;
-                                return db.collection('workouts').insert(workout);
 
-                            case 9:
-                                _context.next = 11;
-                                return Promise.all(sections.map(function (s) {
-                                    s.workoutId = workout._id;
-                                    return db.collection('sections').insert(s);
-                                }));
+                                debugger;
+                                return _context.abrupt('return', db.collection('workoutTags').insert(tag));
 
-                            case 11:
+                            case 5:
                             case 'end':
                                 return _context.stop();
                         }
@@ -80,15 +61,15 @@ var WorkoutDAO = function (_DAO) {
                 }, _callee, this);
             }));
 
-            function save(_x, _x2) {
+            function addTag(_x) {
                 return _ref.apply(this, arguments);
             }
 
-            return save;
+            return addTag;
         }()
     }]);
 
-    return WorkoutDAO;
+    return WorkoutTagDAO;
 }(_dao2.default);
 
-exports.default = WorkoutDAO;
+exports.default = WorkoutTagDAO;

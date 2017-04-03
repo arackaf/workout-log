@@ -5,13 +5,6 @@ import {FadeList} from 'util/fade';
 import DatePicker, {BoundInput} from 'util/datepicker';
 import Select, {Creatable} from 'react-select';
 
-var options = [
-	{ value: 1, label: 'Strength' },
-	{ value: 2, label: 'Die' },
-	{ value: 3, label: 'Heart Rate' },
-	{ value: 4, label: 'Legs' }
-];
-
 @inject('workoutTagStore')
 @observer
 export default class EnterWorkout extends Component {
