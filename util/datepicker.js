@@ -18,6 +18,22 @@ export class BoundInput extends Component {
     }
 }
 
+@observer
+export class BoundTextArea extends Component {
+    boundChange = evt => {
+        const {model, name} = this.props;
+        model[name] = evt.target.value;
+    };
+
+    render() {
+        let { model, name, children, ...rest } = this.props;
+
+        return (
+            <textarea value={model[name]} {...rest} onChange={this.boundChange}></textarea>
+        )
+    }
+}
+
 export class DatePickerRaw extends Component {
     optIn(el) {
         $(el).datepicker({

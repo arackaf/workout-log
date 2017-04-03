@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import {observer} from 'mobx-react';
 import {FadeList} from 'util/fade';
 import Select, {Creatable} from 'react-select';
-
+import {BoundInput, BoundTextArea} from 'util/datepicker';
 
 @observer
 class Line extends Component {
     componentDidMount() {
-        this.input.focus();
+        findDOMNode(this.input).focus();
     }
     render() {
         let {store} = this.props;
         return (
             <div className="form-group">
-                <input ref={el => this.input = el} className="form-control" placeholder="Exercise" />
+                <BoundInput ref={el => this.input = el} model={store} name="content" className="form-control" placeholder="Exercise" />
             </div>
         );
     }
@@ -28,14 +29,14 @@ var options = [
 @observer
 export default class Section extends Component {
     componentDidMount() {
-        this.name.focus();
+        findDOMNode(this.name).focus();
     }
     render() {
         let {store} = this.props;
         return (
             <div className='panel panel-default' style={{float: 'left', padding: '15px', margin: '5px', minWidth: '350px'}}>
                 <div className="form-group">
-                    <input ref={el => this.name = el} className="form-control" rows="3" placeholder="Name" />
+                    <BoundInput ref={el => this.name = el} model={store} name="name" className="form-control" rows="3" placeholder="Name" />
                 </div>
                 <div className="form-group">
                     <Creatable placeholder="Tag this section" onChange={store.setTags} value={store.rawTags} multi={true} options={options} />
@@ -49,7 +50,7 @@ export default class Section extends Component {
                 <hr/>
 
                 <div className="form-group">
-                    <textarea className="form-control" rows="3" placeholder="Notes" />
+                    <BoundTextArea model={store} name="notes" className="form-control" rows="3" placeholder="Notes" />
                 </div>
             </div>
         );

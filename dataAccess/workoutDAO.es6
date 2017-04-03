@@ -6,13 +6,15 @@ import {ObjectId} from 'mongodb';
 export default class WorkoutDAO extends DAO {
     async save(workout, sections){
         let db = await super.open(),
-            workoutTagDao = new WorkoutTagDao();
+            workoutTagDao = new WorkoutTagDao(),
+            sectionTagDao = new SectionTagDao();
 
         let newTags = workout.tags.filter(t => !t._id);
         await Promise.all(newTags.map(t => workoutTagDao.addTag(t)));
-        for (let s of workout.sections){
+        for (let s of sections){
             let newTags = s.tags.filter(t => !t._id);
-            await Promise.all(newTags.map(t => sec.addTag(t))); //not ideal, but shouldn't matter in practice
+            await Promise.all(newTags.map(t => sectionTagDao.addTag(t))); //not ideal, but shouldn't matter in practice
+            s.tags = s.tags.map(t => t._id);
         }
 
         workout.tags = workout.tags.map(t => t._id);

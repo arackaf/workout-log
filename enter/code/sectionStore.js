@@ -6,6 +6,7 @@ class Line {
 
 export default class SectionStore {
     @observable name = '';
+    @observable notes = '';
     @action setTags = tags => this.tags = tags;
     @observable tags = [];
     @computed get rawTags(){ return this.tags.slice(); };
