@@ -1,5 +1,5 @@
 import { httpPost, route, nonRoutable, controller } from 'easy-express-controllers';
-import WorkoutDAO from '../dataAccess/workoutDAO';
+import WorkoutDAO from '../dataAccess/workoutDao';
 
 @controller({ defaultVerb: 'post' })
 export default class workoutController {

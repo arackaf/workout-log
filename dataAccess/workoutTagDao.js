@@ -35,9 +35,9 @@ var WorkoutTagDAO = function (_DAO) {
     }
 
     _createClass(WorkoutTagDAO, [{
-        key: 'addTag',
+        key: 'load',
         value: function () {
-            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(tag) {
+            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
                 var db;
                 return regeneratorRuntime.wrap(function _callee$(_context) {
                     while (1) {
@@ -48,12 +48,9 @@ var WorkoutTagDAO = function (_DAO) {
 
                             case 2:
                                 db = _context.sent;
+                                return _context.abrupt('return', db.collection('workoutTags').find({}).toArray());
 
-
-                                debugger;
-                                return _context.abrupt('return', db.collection('workoutTags').insert(tag));
-
-                            case 5:
+                            case 4:
                             case 'end':
                                 return _context.stop();
                         }
@@ -61,8 +58,38 @@ var WorkoutTagDAO = function (_DAO) {
                 }, _callee, this);
             }));
 
-            function addTag(_x) {
+            function load() {
                 return _ref.apply(this, arguments);
+            }
+
+            return load;
+        }()
+    }, {
+        key: 'addTag',
+        value: function () {
+            var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(tag) {
+                var db;
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                _context2.next = 2;
+                                return _get(WorkoutTagDAO.prototype.__proto__ || Object.getPrototypeOf(WorkoutTagDAO.prototype), 'open', this).call(this);
+
+                            case 2:
+                                db = _context2.sent;
+                                return _context2.abrupt('return', db.collection('workoutTags').insert(tag));
+
+                            case 4:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            function addTag(_x) {
+                return _ref2.apply(this, arguments);
             }
 
             return addTag;

@@ -11,9 +11,9 @@ var _dec, _class;
 
 var _easyExpressControllers = require('easy-express-controllers');
 
-var _workoutDao = require('../dataAccess/workoutDao');
+var _workoutTagDao = require('../dataAccess/workoutTagDao');
 
-var _workoutDao2 = _interopRequireDefault(_workoutDao);
+var _workoutTagDao2 = _interopRequireDefault(_workoutTagDao);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21,31 +21,31 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var workoutController = (_dec = (0, _easyExpressControllers.controller)({ defaultVerb: 'post' }), _dec(_class = function () {
-    function workoutController() {
-        _classCallCheck(this, workoutController);
+var TagController = (_dec = (0, _easyExpressControllers.controller)({ defaultVerb: 'get' }), _dec(_class = function () {
+    function TagController() {
+        _classCallCheck(this, TagController);
     }
 
-    _createClass(workoutController, [{
-        key: 'save',
+    _createClass(TagController, [{
+        key: 'workout',
         value: function () {
-            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref2) {
-                var workout = _ref2.workout,
-                    sections = _ref2.sections;
-                var workoutDAO;
+            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+                var workoutTagDAO, results;
                 return regeneratorRuntime.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                workoutDAO = new _workoutDao2.default();
+                                workoutTagDAO = new _workoutTagDao2.default();
                                 _context.next = 3;
-                                return workoutDAO.save(workout, sections);
+                                return workoutTagDAO.load();
 
                             case 3:
+                                results = _context.sent;
 
-                                this.send({ success: true });
 
-                            case 4:
+                                this.send({ success: true, tags: results });
+
+                            case 5:
                             case 'end':
                                 return _context.stop();
                         }
@@ -53,14 +53,14 @@ var workoutController = (_dec = (0, _easyExpressControllers.controller)({ defaul
                 }, _callee, this);
             }));
 
-            function save(_x) {
+            function workout() {
                 return _ref.apply(this, arguments);
             }
 
-            return save;
+            return workout;
         }()
     }]);
 
-    return workoutController;
+    return TagController;
 }()) || _class);
-exports.default = workoutController;
+exports.default = TagController;

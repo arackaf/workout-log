@@ -44,6 +44,7 @@ module.exports = {
         proxy: {
             "/enter": "http://localhost:3000",
             "/workout": "http://localhost:3000",
+            "/tag": "http://localhost:3000"
         }
     }
 };
