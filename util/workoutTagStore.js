@@ -3,12 +3,7 @@ import {sortLabelsBy} from 'util/tagUtils';
 import TagStore from './tagStore';
 
 class WorkoutTagStore extends TagStore {
-    constructor() {
-        super();
-        ajaxUtil.get('/tag/workout').then(resp => {
-            super.setTags(resp.tags);
-        })
-    }
+    path = '/tag/workout';
 }
 
 export default new WorkoutTagStore();

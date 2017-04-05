@@ -11,13 +11,14 @@ export default class WorkoutDAO extends DAO {
 
         let newTags = workout.tags.filter(t => !t._id);
         await Promise.all(newTags.map(t => workoutTagDao.addTag(t)));
+        workout.tags = workout.tags.map(t => '' + t._id);
+        
         for (let s of sections){
             let newTags = s.tags.filter(t => !t._id);
             await Promise.all(newTags.map(t => sectionTagDao.addTag(t))); //not ideal, but shouldn't matter in practice
-            s.tags = s.tags.map(t => t._id);
+            s.tags = s.tags.map(t => '' + t._id);
         }
 
-        workout.tags = workout.tags.map(t => t._id);
         await db.collection('workouts').insert(workout);
         await Promise.all(sections.map(s => {
             s.workoutId = workout._id;

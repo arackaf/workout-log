@@ -15,6 +15,10 @@ var _workoutTagDao = require('../dataAccess/workoutTagDao');
 
 var _workoutTagDao2 = _interopRequireDefault(_workoutTagDao);
 
+var _sectionTagDao = require('../dataAccess/sectionTagDao');
+
+var _sectionTagDao2 = _interopRequireDefault(_sectionTagDao);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -58,6 +62,39 @@ var TagController = (_dec = (0, _easyExpressControllers.controller)({ defaultVer
             }
 
             return workout;
+        }()
+    }, {
+        key: 'section',
+        value: function () {
+            var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
+                var sectionTagDAO, results;
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                sectionTagDAO = new _sectionTagDao2.default();
+                                _context2.next = 3;
+                                return sectionTagDAO.load();
+
+                            case 3:
+                                results = _context2.sent;
+
+
+                                this.send({ success: true, tags: results });
+
+                            case 5:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            function section() {
+                return _ref2.apply(this, arguments);
+            }
+
+            return section;
         }()
     }]);
 

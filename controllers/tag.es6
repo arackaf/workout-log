@@ -1,5 +1,6 @@
 import { httpPost, route, nonRoutable, controller } from 'easy-express-controllers';
 import WorkoutTagDAO from '../dataAccess/workoutTagDao';
+import SectionTagDAO from '../dataAccess/sectionTagDao';
 
 @controller({ defaultVerb: 'get' })
 export default class TagController {
@@ -9,4 +10,10 @@ export default class TagController {
 
         this.send({success: true, tags: results});
     }
+    async section(){
+        let sectionTagDAO = new SectionTagDAO();
+        let results = await sectionTagDAO.load();
+
+        this.send({success: true, tags: results});
+    }    
 }

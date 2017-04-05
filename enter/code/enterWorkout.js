@@ -5,11 +5,11 @@ import {FadeList} from 'util/fade';
 import DatePicker, {BoundInput} from 'util/datepicker';
 import Select, {Creatable} from 'react-select';
 
-@inject('workoutTagStore')
+@inject('workoutTagStore', 'sectionTagStore')
 @observer
 export default class EnterWorkout extends Component {
     render() {
-        let {store, workoutTagStore} = this.props;
+        let {store, workoutTagStore, sectionTagStore} = this.props;
         return (
             <div>
                 <div className='panel panel-default' style={{ 'margin': '15px', padding: '15px', minHeight: '500px' }}>
@@ -26,7 +26,7 @@ export default class EnterWorkout extends Component {
                     <br />
 
                     <FadeList>
-                        {store.sections.map(s => <Section store={s} />)}
+                        {store.sections.map(s => <Section sectionTagStore={sectionTagStore} store={s} />)}
                     </FadeList>
 
                     <br style={{clear: 'both'}} />

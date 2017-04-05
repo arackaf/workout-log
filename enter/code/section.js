@@ -20,26 +20,20 @@ class Line extends Component {
     }
 }
 
-var options = [
-	{ value: 1, label: 'Arms' },
-	{ value: 2, label: 'Legs' },
-	{ value: 3, label: 'Chest' }
-];
-
 @observer
 export default class Section extends Component {
     componentDidMount() {
         findDOMNode(this.name).focus();
     }
     render() {
-        let {store} = this.props;
+        let {store, sectionTagStore} = this.props;
         return (
             <div className='panel panel-default' style={{float: 'left', padding: '15px', margin: '5px', minWidth: '350px'}}>
                 <div className="form-group">
                     <BoundInput ref={el => this.name = el} model={store} name="name" className="form-control" rows="3" placeholder="Name" />
                 </div>
                 <div className="form-group">
-                    <Creatable placeholder="Tag this section" onChange={store.setTags} value={store.rawTags} multi={true} options={options} />
+                    <Creatable placeholder="Tag this section" onChange={store.setTags} value={store.rawTags} multi={true} options={sectionTagStore.allTags} />
                 </div>
 
                 <FadeList>
