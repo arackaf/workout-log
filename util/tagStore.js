@@ -2,7 +2,8 @@ import {action, observable, computed} from 'mobx';
 import {sortLabelsBy} from 'util/tagUtils';
 
 export default class TagStore{
-    constructor() {
+    constructor(path) {
+        this.path = path;
         ajaxUtil.get(this.path).then(resp => {
             this.setTags(resp.tags);
         });

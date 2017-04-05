@@ -3,7 +3,9 @@ import {sortLabelsBy} from 'util/tagUtils';
 import TagStore from './tagStore';
 
 class WorkoutTagStore extends TagStore {
-    path = '/tag/workout';
+    constructor() {
+        super('/tag/workout');
+    }
 }
 
 export default new WorkoutTagStore();
