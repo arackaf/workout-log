@@ -3,7 +3,7 @@ import {findDOMNode} from 'react-dom';
 import {observer} from 'mobx-react';
 import {FadeList} from 'util/fade';
 import Select, {Creatable} from 'react-select';
-import {BoundInput, BoundTextArea} from 'util/datepicker';
+import {BoundInput, BoundTextArea} from 'util/boundInputs';
 
 @observer
 class Line extends Component {
@@ -11,10 +11,10 @@ class Line extends Component {
         findDOMNode(this.input).focus();
     }
     render() {
-        let {store} = this.props;
+        let {store, disabled} = this.props;
         return (
             <div className="form-group">
-                <BoundInput ref={el => this.input = el} model={store} name="content" className="form-control" placeholder="Exercise" />
+                <BoundInput ref={el => this.input = el} disabled={disabled} model={store} name="content" className="form-control" placeholder="Exercise" />
             </div>
         );
     }
@@ -26,25 +26,25 @@ export default class Section extends Component {
         findDOMNode(this.name).focus();
     }
     render() {
-        let {store, sectionTagStore} = this.props;
+        let {store, sectionTagStore, saving, frozen} = this.props;
         return (
             <div className='panel panel-default' style={{float: 'left', padding: '15px', margin: '5px', minWidth: '350px'}}>
                 <div className="form-group">
-                    <BoundInput ref={el => this.name = el} model={store} name="name" className="form-control" rows="3" placeholder="Name" />
+                    <BoundInput disabled={saving || frozen} ref={el => this.name = el} model={store} name="name" className="form-control" rows="3" placeholder="Name" />
                 </div>
                 <div className="form-group">
-                    <Creatable placeholder="Tag this section" onChange={store.setTags} value={store.rawTags} multi={true} options={sectionTagStore.allTags} />
+                    <Creatable disabled={saving || frozen} placeholder="Tag this section" onChange={store.setTags} value={store.rawTags} multi={true} options={sectionTagStore.allTags} />
                 </div>
 
                 <FadeList>
-                    {store.lines.map((l, i) => <Line store={l}></Line>)}
+                    {store.lines.map((l, i) => <Line disabled={saving || frozen} key={l._id || i} store={l}></Line>)}
                 </FadeList>
-                <button onClick={store.addLine} className='btn btn-primary pull-right'>Add <i className='fa fa-fw fa-plus'></i></button>
+                <button onClick={store.addLine} disabled={saving || frozen} className='btn btn-primary pull-right'>Add <i className='fa fa-fw fa-plus'></i></button>
                 <br />
                 <hr/>
 
                 <div className="form-group">
-                    <BoundTextArea model={store} name="notes" className="form-control" rows="3" placeholder="Notes" />
+                    <BoundTextArea model={store} disabled={saving || frozen} name="notes" className="form-control" rows="3" placeholder="Notes" />
                 </div>
             </div>
         );

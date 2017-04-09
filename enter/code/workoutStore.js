@@ -7,20 +7,19 @@ import WorkoutTagStore from 'util/WorkoutTagStore';
 const today = new Date();
 
 export default class WorkoutStore {
-    constructor() {
-        // setTimeout(() => WorkoutTagStore.addTag(1, 'Hello'), 300);
-        // setTimeout(() => WorkoutTagStore.addTag(2, 'World'), 350);
-        // setTimeout(() => WorkoutTagStore.addTag(3, 'hello'), 400);
-        // setTimeout(() => WorkoutTagStore.addTag(4, 'world'), 450);
-    }
-
     @observable name = '';
     @observable date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+    @observable saving = false;
+    @observable frozen = false;
+
     @observable tags = [];
     @computed get rawTags(){ return this.tags.slice(); };
+
     @action setTags = tags => this.tags = tags;
     @observable sections = [];
+
     @action addSection = () => this.sections.push(new SectionStore());
+
     @action save = () => {
         let workout = toJS(this);
         let sections = workout.sections;
@@ -29,11 +28,10 @@ export default class WorkoutStore {
         workout.tags = adjustTags(workout.tags);
         sections.forEach(s => s.tags = adjustTags(s.tags));
 
-        //debugger;
-
-        ajaxUtil.post('/workout/save', {workout, sections});
-
-        console.log(workout);
-        console.log(sections);
+        this.saving = true;
+        this.frozen = true;
+        ajaxUtil.post('/workout/save', {workout, sections}).then(() => {
+            this.saving = false;
+        });
     }
 }
