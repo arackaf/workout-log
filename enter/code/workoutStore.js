@@ -32,6 +32,11 @@ export default class WorkoutStore {
         this.frozen = true;
         ajaxUtil.post('/workout/save', {workout, sections}).then(() => {
             this.saving = false;
+            this.frozen = false;
+
+            this.name = '';
+            this.tags.clear();
+            this.sections.clear();
         });
     }
 }

@@ -33,7 +33,7 @@ export default class Section extends Component {
                     <BoundInput disabled={saving || frozen} ref={el => this.name = el} model={store} name="name" className="form-control" rows="3" placeholder="Name" />
                 </div>
                 <div className="form-group">
-                    <Creatable disabled={saving || frozen} placeholder="Tag this section" onChange={store.setTags} value={store.rawTags} multi={true} options={sectionTagStore.allTags} />
+                    <Creatable disabled={saving || frozen} placeholder="Tag this section" ref={el => this.creatableEl = el} onNewOptionClick={obj => store.addNewTag(obj, this.creatableEl)} onChange={store.setTags} value={store.rawTags} multi={true} options={sectionTagStore.allTags} />
                 </div>
 
                 <FadeList>
