@@ -43,7 +43,7 @@ export default class WorkoutDAO extends DAO {
     async search(){
         let db = await super.open();
 
-        let workouts = await db.collection('workouts').find({}).toArray();
+        let workouts = await db.collection('workouts').find({}).sort({_id : -1}).toArray();
         let sectionIds = [...new Set(workouts.reduce((sectionIds, w) => sectionIds.concat(w.sections), []))];
 
         let sections = await db.collection('sections').find({ _id: { $in: sectionIds.map(_id => ObjectId(_id)) } }).toArray();
