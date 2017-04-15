@@ -16,7 +16,7 @@ export default class TagStore{
         this.tagLookup.replace(tags.map(t => [t._id, t.display]));
     }
     createTag(t){
-        let newId = '' + (newIdCounter--);
+        let newId = 'new_' + (newIdCounter--);
         this.tagLookup.set(newId, t.label);
         return {value: newId, label: t.label};
     }

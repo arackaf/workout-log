@@ -28,6 +28,7 @@ export default class WorkoutStore {
         workout.tags = adjustTags(workout.tags);
         sections.forEach(s => s.tags = adjustTags(s.tags));
 
+
         this.saving = true;
         this.frozen = true;
         ajaxUtil.post('/workout/save', {workout, sections}).then(() => {
