@@ -3,38 +3,32 @@ import {action, observable, computed} from 'mobx';
 import {observer, Provider, inject} from 'mobx-react';
 import Measure from 'react-measure';
 
+const panelStyles = { border: '1px solid #ddd', borderRadius: '4px' }
+
 @observer
 class SectionDisplay extends Component {
     render() {
-        let {section, minHeight} = this.props;
+        let {section} = this.props;
         return (
-            <div className='col-xs-4' style={{minHeight: minHeight + 'px'}}>
-                <div>{section.name}</div>
-                <hr style={{marginTop: '5px'}} />
-                {section.lines.map(line => <div>{line.content}</div>)}
-                {section.notes ? <div><br />{section.notes}</div> : null}
+            <div style={{marginRight: '3px', marginBottom: '5px', ...panelStyles}}>
+                <div style={{paddingTop: '5px', paddingLeft: '10px', paddingRight: '10px', minWidth: '100px', maxWidth: '250px'}}>
+                    <div>{section.name}</div>
+                    <hr style={{marginTop: '1px'}} />
+                    {section.lines.map(line => <div>{line.content}</div>)}
+                    {section.notes ? <div><br />{section.notes}</div> : null}
+                </div>
             </div>
         );
     }
 }
 
 @observer
-class SectionsDisplay extends Component {
-    @observable minHeight = 50;
-    @action sectionMeasured = dimensions => {
-        if (dimensions.height > this.minHeight){
-            this.minHeight = dimensions.height;
-        }
-    }
+class SectionsDisplay extends Component { 
     render() {
         let {sections} = this.props;
         return (
-            <div>
-                {sections.map(s => (
-                    <Measure whitelist={['height']} onMeasure={this.sectionMeasured}>
-                        <SectionDisplay minHeight={this.minHeight} section={s} />
-                    </Measure>
-                ))}
+            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                {sections.map(s => <SectionDisplay onHeightChange={this.sectionMeasured} minHeight={this.minHeight} section={s} />)}
             </div>
         );
     }
@@ -48,21 +42,19 @@ export default class ListView extends Component {
         return (
             <div>
                 {workouts.map(w => {
-                    let tags = w.tags.map(t => workoutTagStore.tagLookup.get(t)).filter(t => t).join(', ');
+                    let tags = w.tags.map(t => workoutTagStore.tagLookup.get(t)).filter(t => t);
 
                     return (
-                        <div className='panel panel-default' style={{margin: '10px', padding: '10px'}}>
+                        <div className='panel panel-default' style={{padding: '10px'}}>
                             <div>{w.name}</div>
                             <hr style={{marginTop: '5px'}} />
                             <div className="row">
-                                <div className="col-xs-2">                                    
+                                <div className="col-xs-12 col-sm-2">                                    
                                     <div>{w.date}</div>
-                                    <div>{tags}</div>
+                                    <div>{tags.map(t => <div>{t}</div>)}</div>
                                 </div>
-                                <div className="col-xs-10">
-                                    <div className="row">
-                                        <SectionsDisplay sections={w.sections} />
-                                    </div>
+                                <div className="col-xs-11 col-sm-9">
+                                    <SectionsDisplay sections={w.sections} />
                                 </div>
                             </div>
                         </div>

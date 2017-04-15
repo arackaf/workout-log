@@ -7,10 +7,10 @@ const today = new Date();
 
 export default class ViewWorkoutsStore {
     @observable workouts = [];
-    @observable mode = 'table';
+    @observable mode = 'list';
     @action setTable = props => this.mode = 'table';
     @action setList = props => this.mode = 'list';
-    
+
     constructor(){
         this.load();
     }

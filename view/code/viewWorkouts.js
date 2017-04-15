@@ -14,11 +14,14 @@ export default class Section extends Component {
         let {store} = this.props,
             WorkoutViewComponent = store.mode === 'table' ? TableView : ListView;
         return (
-            <div className='row'>
-                <div className='col-xs-12'>
-                    <div className='panel panel-default' style={{padding: '15px', margin: '5px', minWidth: '350px'}}>                        
-                        <button onClick={store.setTable} className='btn btn-sm btn-primary'><i className='fa fa-table'></i></button>&nbsp;
-                        <button onClick={store.setList} className='btn btn-sm btn-primary'><i className='fa fa-list'></i></button>
+            <div>
+                <div>
+                    <div style={{padding: '2px', margin: '5px'}}>                        
+                        <div>
+                            <button onClick={store.setTable} className='btn btn-sm btn-primary'><i className='fa fa-table'></i></button>&nbsp;
+                            <button onClick={store.setList} className='btn btn-sm btn-primary'><i className='fa fa-list'></i></button>
+                        </div>
+                        <br />
 
                         <WorkoutViewComponent workouts={store.workouts} />
                     </div>
