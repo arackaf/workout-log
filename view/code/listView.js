@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
+import {action, observable, computed} from 'mobx';
 import {observer, Provider, inject} from 'mobx-react';
+import Measure from 'react-measure';
 
 @observer
 class SectionDisplay extends Component {
     render() {
-        let {section} = this.props;
+        let {section, minHeight} = this.props;
         return (
-            <div className='col-xs-4' style={{minHeight: '200px'}}>
+            <div className='col-xs-4' style={{minHeight: minHeight + 'px'}}>
                 <div>{section.name}</div>
                 <hr style={{marginTop: '5px'}} />
                 {section.lines.map(line => <div>{line.content}</div>)}
@@ -16,7 +18,30 @@ class SectionDisplay extends Component {
     }
 }
 
+@observer
+class SectionsDisplay extends Component {
+    @observable minHeight = 50;
+    @action sectionMeasured = dimensions => {
+        if (dimensions.height > this.minHeight){
+            this.minHeight = dimensions.height;
+        }
+    }
+    render() {
+        let {sections} = this.props;
+        return (
+            <div>
+                {sections.map(s => (
+                    <Measure whitelist={['height']} onMeasure={this.sectionMeasured}>
+                        <SectionDisplay minHeight={this.minHeight} section={s} />
+                    </Measure>
+                ))}
+            </div>
+        );
+    }
+}
+
 @inject('workoutTagStore')
+@observer
 export default class ListView extends Component {
     render() {
         let {workouts, workoutTagStore} = this.props;
@@ -36,7 +61,7 @@ export default class ListView extends Component {
                                 </div>
                                 <div className="col-xs-10">
                                     <div className="row">
-                                        {w.sections.map(s => <SectionDisplay section={s} />)}
+                                        <SectionsDisplay sections={w.sections} />
                                     </div>
                                 </div>
                             </div>
