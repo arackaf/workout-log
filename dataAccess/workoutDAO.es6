@@ -8,10 +8,6 @@ export default class WorkoutDAO extends DAO {
         let db = await super.open(),
             workoutTagDao = new WorkoutTagDao(),
             sectionTagDao = new SectionTagDao();
-
-        let newTags = workout.tags.filter(t => /^new_/.test(t._id));
-        await Promise.all(newTags.map(t => workoutTagDao.addTag(t)));
-        workout.tags = workout.tags.map(t => '' + t._id);
         
         let newSectionTagMap = {};
         for (let s of sections){
@@ -29,10 +25,27 @@ export default class WorkoutDAO extends DAO {
             s.tags = s.tags.map(t => '' + t._id);
         }
 
-        await db.collection('workouts').insert(workout);
         await Promise.all(sections.map(s => {
-            s.workoutId = workout._id;
             return db.collection('sections').insert(s);
         }));
+        let sectionIds = sections.map(s => '' + s._id);
+        workout.sections = sectionIds;
+
+        let newTags = workout.tags.filter(t => /^new_/.test(t._id));
+        await Promise.all(newTags.map(t => workoutTagDao.addTag(t)));
+        workout.tags = workout.tags.map(t => '' + t._id);
+
+        await db.collection('workouts').insert(workout);
+    }
+
+    async search(){
+        let db = await super.open();
+
+        let workouts = await db.collection('workouts').find({}).toArray();
+        let sectionIds = [...new Set(workouts.reduce((sectionIds, w) => sectionIds.concat(w.sections), []))];
+
+        let sections = await db.collection('sections').find({ _id: { $in: sectionIds.map(_id => ObjectId(_id)) } }).toArray();
+
+        return {workouts, sections};
     }
 }

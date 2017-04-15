@@ -38,6 +38,10 @@ app.get('/enter', function (request, response) {
     response.sendFile(path.join(__dirname + '/enter/enter.htm'));
 });
 
+app.get('/view', function (request, response) {
+    response.sendFile(path.join(__dirname + '/view/view.htm'));
+});
+
 process.on('uncaughtException', error);
 process.on('unhandledRejection', error);
 process.on('exit', shutdown);

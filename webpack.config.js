@@ -7,7 +7,8 @@ var noVisualization = process.env.NODE_ENV === 'production'
 
 module.exports = {
     entry: {
-        enter: './enter/enter.js'
+        enter: './enter/enter.js',
+        view: './view/view.js'
     },
     output: {
         filename: '[name]-bundle.js',
@@ -43,6 +44,7 @@ module.exports = {
     devServer: {
         proxy: {
             "/enter": "http://localhost:3000",
+            "/view": "http://localhost:3000",
             "/workout": "http://localhost:3000",
             "/tag": "http://localhost:3000"
         }
