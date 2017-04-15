@@ -5,10 +5,13 @@ import Measure from 'react-measure';
 
 const panelStyles = { border: '1px solid #ddd', borderRadius: '4px' }
 
+@inject('sectionTagStore')
 @observer
 class SectionDisplay extends Component {
     render() {
-        let {section} = this.props;
+        let {section, sectionTagStore} = this.props,
+            tags = section.tags.map(t => sectionTagStore.tagLookup.get(t)).filter(t => t);
+
         return (
             <div style={{marginRight: '3px', marginBottom: '5px', ...panelStyles}}>
                 <div style={{paddingTop: '5px', paddingLeft: '10px', paddingRight: '10px', minWidth: '100px', maxWidth: '250px'}}>
@@ -16,6 +19,14 @@ class SectionDisplay extends Component {
                     <hr style={{marginTop: '1px'}} />
                     {section.lines.map(line => <div>{line.content}</div>)}
                     {section.notes ? <div><br />{section.notes}</div> : null}
+                    {tags.length ? (
+                        <div>
+                            <br />
+                            <b>Tags:</b>
+                            <br/>
+                            <div style={{marginLeft: '5px'}}>{tags.map(t => <div>{t}</div>)}</div>
+                        </div>
+                    ) : null}
                 </div>
             </div>
         );

@@ -8,7 +8,6 @@ import sectionTagStore from 'util/sectionTagStore';
 import ViewWorkouts from './code/viewWorkouts';
 import ViewWorkoutsStore from './code/viewWorkoutsStore';
 
-
 render(
     <Provider workoutTagStore={workoutTagStore} sectionTagStore={sectionTagStore}>
         <ViewWorkouts store={new ViewWorkoutsStore()} />
