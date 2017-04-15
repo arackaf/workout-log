@@ -32,6 +32,8 @@ export default class WorkoutDAO extends DAO {
         workout.sections = sectionIds;
 
         let newTags = workout.tags.filter(t => /^new_/.test(t._id));
+        newTags.forEach(t => { delete t._id; });
+        
         await Promise.all(newTags.map(t => workoutTagDao.addTag(t)));
         workout.tags = workout.tags.map(t => '' + t._id);
 

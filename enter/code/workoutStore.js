@@ -2,7 +2,7 @@ import {action, observable, computed, toJS} from 'mobx';
 import SectionStore from './sectionStore';
 import {adjustTags} from 'util/tagUtils';
 
-import WorkoutTagStore from 'util/workoutTagStore';
+import workoutTagStore from 'util/workoutTagStore';
 
 const today = new Date();
 
@@ -19,6 +19,11 @@ export default class WorkoutStore {
     @observable sections = [];
 
     @action addSection = () => this.sections.push(new SectionStore());
+
+    @action addNewTag = (obj, creatableEl) => {
+        this.tags.push(workoutTagStore.createTag(obj));
+        creatableEl.select.setState({inputValue: ''});
+    }
 
     @action save = () => {
         let workout = toJS(this);

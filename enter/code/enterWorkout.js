@@ -19,7 +19,7 @@ export default class EnterWorkout extends Component {
                     <hr style={{marginTop: 0}} />
                     <BoundInput disabled={store.saving || store.frozen} placeholder='Name' className='form-control' model={store} name='name' />
                     <br />
-                    <Creatable disabled={store.saving || store.frozen} placeholder="Tag this workout" onChange={store.setTags} value={store.rawTags} multi={true} options={workoutTagStore.allTags} />
+                    <Creatable disabled={store.saving || store.frozen} placeholder="Tag this workout" ref={el => this.creatableEl = el} onNewOptionClick={obj => store.addNewTag(obj, this.creatableEl)} onChange={store.setTags} value={store.rawTags} multi={true} options={workoutTagStore.allTags} />
                     <br />
                     <DatePicker disabled={store.saving || store.frozen} style={{width: '100px'}} className='form-control' model={store} name='date' />
                     <br />
