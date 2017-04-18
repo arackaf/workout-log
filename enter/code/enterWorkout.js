@@ -28,7 +28,7 @@ export default class EnterWorkout extends Component {
                     <br />
 
                     <FadeList>
-                        {store.sections.map((s, i) => <Section key={s._id || i} frozen={store.frozen} saving={store.saving} sectionTagStore={sectionTagStore} store={s} />)}
+                        {store.sections.map((s, i) => <Section onRemove={() => store.removeSection(s)} key={s._id || i} frozen={store.frozen} saving={store.saving} sectionTagStore={sectionTagStore} store={s} />)}
                     </FadeList>
 
                     <br style={{clear: 'both'}} />

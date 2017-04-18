@@ -17,6 +17,7 @@ export default class WorkoutStore {
 
     @action setTags = tags => this.tags = tags;
     @observable sections = [];
+    @action removeSection = section => this.sections.remove(section);
 
     @action addSection = () => this.sections.push(new SectionStore());
 

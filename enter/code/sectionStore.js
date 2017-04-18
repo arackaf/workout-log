@@ -17,4 +17,5 @@ export default class SectionStore {
     @computed get rawTags(){ return this.tags.slice(); };
     @observable lines = [new Line()];
     @action addLine = () => this.lines.push(new Line());
+    @action removeLine = line => this.lines.remove(line);
 }
