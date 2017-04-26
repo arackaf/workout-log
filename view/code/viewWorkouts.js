@@ -9,7 +9,7 @@ import TableView from './tableView';
 import ListView from './listView';
 
 
-import workoutTagStore from 'util/WorkoutTagStore';
+import workoutTagStore from 'util/workoutTagStore';
 import sectionTagStore from 'util/sectionTagStore';
 import ViewWorkoutsStore from './/viewWorkoutsStore';
 

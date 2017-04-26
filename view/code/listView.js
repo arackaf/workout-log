@@ -15,8 +15,8 @@ class SectionDisplay extends Component {
         return (
             <div style={{marginRight: '3px', marginBottom: '5px', ...panelStyles}}>
                 <div style={{paddingTop: '5px', paddingLeft: '10px', paddingRight: '10px', minWidth: '100px', maxWidth: '250px'}}>
-                    <div>{section.name}</div>
-                    <hr style={{marginTop: '1px'}} />
+                    {section.name ? <div>{section.name}</div> : null}
+                    {section.name ? <hr style={{marginTop: '1px'}} /> : null}
                     {section.lines.map(line => <div>{line.content}</div>)}
                     {section.notes ? <div><br />{section.notes}</div> : null}
                     {tags.length ? (

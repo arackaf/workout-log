@@ -1,5 +1,5 @@
 import {action, observable, computed, toJS} from 'mobx';
-import SectionStore from './sectionStore';
+import Section from './section';
 import {adjustTags} from 'util/tagUtils';
 
 import workoutTagStore from 'util/workoutTagStore';
@@ -19,7 +19,7 @@ export default class WorkoutStore {
     @observable sections = [];
     @action removeSection = section => this.sections.remove(section);
 
-    @action addSection = () => this.sections.push(new SectionStore());
+    @action addSection = () => this.sections.push(new Section());
 
     @action addNewTag = (obj, creatableEl) => {
         this.tags.push(workoutTagStore.createTag(obj));

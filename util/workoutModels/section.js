@@ -6,6 +6,7 @@ export class Line {
 }
 
 export default class SectionStore {
+    _id = '';
     @observable name = '';
     @observable notes = '';
     @action setTags = tags => this.tags = tags;

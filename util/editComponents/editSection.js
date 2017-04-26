@@ -5,8 +5,8 @@ import {FadeList} from 'util/fade';
 import Select, {Creatable} from 'react-select';
 import {BoundInput, BoundTextArea} from 'util/boundInputs';
 
-import SectionStore, {Line as LineStore} from './sectionStore';
-import workoutTagStore from 'util/WorkoutTagStore';
+import SectionModel, {Line as LineStore} from 'util/workoutModels/section';
+import workoutTagStore from 'util/workoutTagStore';
 import sectionTagStore from 'util/sectionTagStore';
 
 
@@ -39,7 +39,7 @@ class Line extends Component {
 }
 
 /**
- * @augments {Component<{store: SectionStore, sectionTagStore: typeof sectionTagStore}, {}>}
+ * @augments {Component<{section: SectionModel, sectionTagStore: typeof sectionTagStore}, {}>}
  */
 @observer
 export default class Section extends Component {
@@ -47,27 +47,27 @@ export default class Section extends Component {
         findDOMNode(this.name).focus();
     }
     render() {
-        let {store, sectionTagStore, saving, frozen, onRemove} = this.props;
+        let {section, sectionTagStore, saving, frozen, onRemove} = this.props;
         
         return (
             <div className='panel panel-default' style={{float: 'left', padding: '0 15px 15px 15px', margin: '5px', minWidth: '350px'}}>
                 <a onClick={onRemove} style={{color: 'black', cursor: 'pointer'}} className="pull-right">X</a>
                 <div className="form-group">
-                    <BoundInput disabled={saving || frozen} ref={el => this.name = el} model={store} name="name" className="form-control" rows="3" placeholder="Name" />
+                    <BoundInput disabled={saving || frozen} ref={el => this.name = el} model={section} name="name" className="form-control" rows="3" placeholder="Name" />
                 </div>
                 <div className="form-group">
-                    <Creatable disabled={saving || frozen} placeholder="Tag this section" ref={el => this.creatableEl = el} onNewOptionClick={obj => store.addNewTag(obj, this.creatableEl)} onChange={store.setTags} value={store.rawTags} multi={true} options={sectionTagStore.allTags} />
+                    <Creatable disabled={saving || frozen} placeholder="Tag this section" ref={el => this.creatableEl = el} onNewOptionClick={obj => section.addNewTag(obj, this.creatableEl)} onChange={section.setTags} value={section.rawTags} multi={true} options={sectionTagStore.allTags} />
                 </div>
 
                 <FadeList>
-                    {store.lines.map((l, i) => <Line onRemove={() => store.removeLine(l)} disabled={saving || frozen} index={i} key={l._id || i} store={l}></Line>)}
+                    {section.lines.map((l, i) => <Line onRemove={() => section.removeLine(l)} disabled={saving || frozen} index={i} key={l._id || i} store={l}></Line>)}
                 </FadeList>
-                <button onClick={store.addLine} disabled={saving || frozen} className='btn btn-primary pull-right'>Add <i className='fa fa-fw fa-plus'></i></button>
+                <button onClick={section.addLine} disabled={saving || frozen} className='btn btn-primary pull-right'>Add <i className='fa fa-fw fa-plus'></i></button>
                 <br />
                 <hr/>
 
                 <div className="form-group">
-                    <BoundTextArea model={store} disabled={saving || frozen} name="notes" className="form-control" rows="3" placeholder="Notes" />
+                    <BoundTextArea model={section} disabled={saving || frozen} name="notes" className="form-control" rows="3" placeholder="Notes" />
                 </div>
             </div>
         );

@@ -3,7 +3,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'mobx-react';
 
-import workoutTagStore from 'util/WorkoutTagStore';
+import workoutTagStore from 'util/workoutTagStore';
 import sectionTagStore from 'util/sectionTagStore';
 import ViewWorkouts from './code/viewWorkouts';
 import ViewWorkoutsStore from './code/viewWorkoutsStore';
