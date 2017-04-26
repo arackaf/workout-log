@@ -8,11 +8,20 @@ import {BoundInput, BoundTextArea} from 'util/boundInputs';
 import TableView from './tableView';
 import ListView from './listView';
 
+
+import workoutTagStore from 'util/WorkoutTagStore';
+import sectionTagStore from 'util/sectionTagStore';
+import ViewWorkoutsStore from './/viewWorkoutsStore';
+
+/**
+ * @augments {Component<{workoutTagStore: typeof workoutTagStore, sectionTagStore: typeof sectionTagStore, store: ViewWorkoutsStore}, {}>}
+ */
 @observer
 export default class Section extends Component {
     render() {
         let {store} = this.props,
             WorkoutViewComponent = store.mode === 'table' ? TableView : ListView;
+
         return (
             <div>
                 <div>

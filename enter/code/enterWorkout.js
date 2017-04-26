@@ -7,11 +7,20 @@ import {BoundInput} from 'util/boundInputs';
 import Select, {Creatable} from 'react-select';
 import {SpinButton} from 'util/buttons';
 
+import WorkoutStore from './workoutStore';
+import workoutTagStore from 'util/WorkoutTagStore';
+import sectionTagStore from 'util/sectionTagStore';
+
+
+/**
+ * @augments {Component<{workoutTagStore: typeof workoutTagStore, sectionTagStore: typeof sectionTagStore, store: WorkoutStore}, {}>}
+ */
 @inject('workoutTagStore', 'sectionTagStore')
 @observer
 export default class EnterWorkout extends Component {
     render() {
         let {store, workoutTagStore, sectionTagStore} = this.props;
+
         return (
             <div>
                 <div className='panel panel-default' style={{ 'margin': '15px', padding: '15px', minHeight: '500px' }}>

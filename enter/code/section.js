@@ -5,6 +5,14 @@ import {FadeList} from 'util/fade';
 import Select, {Creatable} from 'react-select';
 import {BoundInput, BoundTextArea} from 'util/boundInputs';
 
+import SectionStore, {Line as LineStore} from './sectionStore';
+import workoutTagStore from 'util/WorkoutTagStore';
+import sectionTagStore from 'util/sectionTagStore';
+
+
+/**
+ * @augments {Component<{store: LineStore}, {}>}
+ */
 @observer
 class Line extends Component {
     componentDidMount() {
@@ -12,6 +20,7 @@ class Line extends Component {
     }
     render() {
         let {store, disabled, index, onRemove} = this.props;
+        
         return (
             <div className="form-group">
                 <div className="row">
@@ -29,6 +38,9 @@ class Line extends Component {
     }
 }
 
+/**
+ * @augments {Component<{store: SectionStore, sectionTagStore: typeof sectionTagStore}, {}>}
+ */
 @observer
 export default class Section extends Component {
     componentDidMount() {
@@ -36,6 +48,7 @@ export default class Section extends Component {
     }
     render() {
         let {store, sectionTagStore, saving, frozen, onRemove} = this.props;
+        
         return (
             <div className='panel panel-default' style={{float: 'left', padding: '0 15px 15px 15px', margin: '5px', minWidth: '350px'}}>
                 <a onClick={onRemove} style={{color: 'black', cursor: 'pointer'}} className="pull-right">X</a>

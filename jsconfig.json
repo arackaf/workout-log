@@ -1,0 +1,16 @@
+{
+	"compilerOptions": { 
+        "experimentalDecorators": true,
+        "baseUrl": "./",
+        "target": "es6"
+    },
+    "include": [
+        "enter/**/*",
+        "view/**/*",
+        "util/**/*"
+    ],
+    "exclude": [
+        "dist/**/*",
+        "node_modules"
+    ]
+}

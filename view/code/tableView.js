@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
 import {observer, Provider, inject} from 'mobx-react';
 
+import workoutTagStore from 'util/WorkoutTagStore';
+import sectionTagStore from 'util/sectionTagStore';
+import ViewWorkoutsStore from './/viewWorkoutsStore';
+
+/**
+ * @augments {Component<{workoutTagStore: typeof workoutTagStore, sectionTagStore: typeof sectionTagStore, workouts: any[]}, {}>}
+ */
 @inject('workoutTagStore')
 export default class TableView extends Component {
     render() {
         let {workouts, workoutTagStore} = this.props;
+        
         return (
             <table className='table table-condensed table-striped table-hover'>
                 <thead>

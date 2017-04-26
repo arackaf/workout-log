@@ -1,7 +1,7 @@
 import {action, observable, computed} from 'mobx';
 import sectionTagStore from 'util/sectionTagStore';
 
-class Line {
+export class Line {
     @observable content = '';
 }
 
