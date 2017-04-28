@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {action, observable, computed} from 'mobx';
 import {observer, Provider, inject} from 'mobx-react';
-import Measure from 'react-measure';
 
 const panelStyles = { border: '1px solid #ddd', borderRadius: '4px' }
 
@@ -49,7 +48,7 @@ class SectionsDisplay extends Component {
 @observer
 export default class ListView extends Component {
     render() {
-        let {workouts, workoutTagStore} = this.props;
+        let {workouts, editWorkout, workoutTagStore} = this.props;
         return (
             <div>
                 {workouts.map(w => {
@@ -68,6 +67,7 @@ export default class ListView extends Component {
                                     <SectionsDisplay sections={w.sections} />
                                 </div>
                             </div>
+                            <button onClick={() => editWorkout(w)}>Edit</button>
                         </div>
                     );
                 })}

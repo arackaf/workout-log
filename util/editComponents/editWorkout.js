@@ -11,13 +11,12 @@ import Workout from 'util/workoutModels/workout';
 import workoutTagStore from 'util/workoutTagStore';
 import sectionTagStore from 'util/sectionTagStore';
 
-
 /**
  * @augments {Component<{workoutTagStore: typeof workoutTagStore, sectionTagStore: typeof sectionTagStore, workout: Workout}, {}>}
  */
 @inject('workoutTagStore', 'sectionTagStore')
 @observer
-export default class EnterWorkout extends Component {
+export default class EditWorkout extends Component {
     render() {
         let {workout, workoutTagStore, sectionTagStore} = this.props;
         

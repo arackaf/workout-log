@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import {FadeList} from 'util/fade';
 import Select, {Creatable} from 'react-select';
 import {BoundInput, BoundTextArea} from 'util/boundInputs';
+import {Modal} from 'simple-react-bootstrap';
 
+import EditWorkout from 'util/editComponents/editWorkout';
 import TableView from './tableView';
 import ListView from './listView';
-
 
 import workoutTagStore from 'util/workoutTagStore';
 import sectionTagStore from 'util/sectionTagStore';
@@ -32,12 +33,22 @@ export default class Section extends Component {
                         </div>
                         <br />
 
-                        <WorkoutViewComponent workouts={store.workouts} />
+                        <WorkoutViewComponent editWorkout={store.editWorkout} workouts={store.workouts} />
                     </div>
                 </div>
+                <Modal className="fade" show={store.editingWorkout} onHide={store.cancelEdit}>
+                    <Modal.Header>
+                        <h6>Edit Workout</h6>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <EditWorkout workout={store.editingWorkout} />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button type="button" className="btn btn-default" onClick={store.cancelEdit}>Close</button>
+                        <button type="button" className="btn btn-primary">Save changes</button>
+                    </Modal.Footer>
+                </Modal>
             </div>
-
-            
         );
     }
 }
