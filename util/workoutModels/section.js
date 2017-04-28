@@ -5,7 +5,7 @@ export class Line {
     @observable content = '';
 }
 
-export default class SectionStore {
+export default class Section {
     _id = '';
     @observable name = '';
     @observable notes = '';
@@ -19,4 +19,15 @@ export default class SectionStore {
     @observable lines = [new Line()];
     @action addLine = () => this.lines.push(new Line());
     @action removeLine = line => this.lines.remove(line);
+
+    static from(sectionResult){
+        let result = new Section();
+        ['_id', 'name', 'notes', 'tags'].forEach(prop => result[prop] = sectionResult[prop]);
+        result.lines = sectionResult.lines.map(l => {
+            let newLine = new Line();
+            newLine.content = l.content;
+            return newLine;
+        })
+        return result;
+    }    
 }

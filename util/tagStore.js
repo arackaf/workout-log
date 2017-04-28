@@ -12,6 +12,8 @@ export default class TagStore{
     tagLookup = observable.map({});
     @computed get allTags(){ return this.tagLookup.entries().sort(sortLabelsBy).map(([value, label]) => ({ value, label })) }
 
+    projectTags = tagIds => tagIds.map(_id => ({_id, display: this.tagLookup.get(_id) })).filter(obj => obj.display);
+
     @action setTags(tags){
         this.tagLookup.replace(tags.map(t => [t._id, t.display]));
     }

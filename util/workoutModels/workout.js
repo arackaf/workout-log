@@ -6,7 +6,7 @@ import workoutTagStore from 'util/workoutTagStore';
 
 const today = new Date();
 
-export default class WorkoutStore {
+export default class Workout {
     @observable name = '';
     @observable date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
     @observable saving = false;
@@ -48,5 +48,12 @@ export default class WorkoutStore {
 
             setTimeout(() => this.frozen = false, 100);
         });
+    }
+
+    static from(workoutResult){
+        let result = new Workout();
+        ['_id', 'name', 'date', 'notes', 'tags'].forEach(prop => result[prop] = workoutResult[prop]);
+        result.sections = workoutResult.sections.map(s => Section.from(s));
+        return result;
     }
 }

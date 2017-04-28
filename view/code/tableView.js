@@ -27,7 +27,7 @@ export default class TableView extends Component {
                     {workouts.map(w => {
                         let tags = w.tags.map(t => workoutTagStore.tagLookup.get(t)).filter(t => t).join(', ');
                         return (
-                            <tr>
+                            <tr key={w._id}>
                                 <td>{w.name}</td>
                                 <td>{w.date}</td>
                                 <td>{tags}</td>

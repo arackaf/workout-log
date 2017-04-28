@@ -10,7 +10,7 @@ const panelStyles = { border: '1px solid #ddd', borderRadius: '4px' }
 class SectionDisplay extends Component {
     render() {
         let {section, sectionTagStore} = this.props,
-            tags = section.tags.map(t => sectionTagStore.tagLookup.get(t)).filter(t => t);
+            tags = sectionTagStore.projectTags(section.tags);
 
         return (
             <div style={{marginRight: '3px', marginBottom: '5px', ...panelStyles}}>
@@ -24,7 +24,7 @@ class SectionDisplay extends Component {
                             <br />
                             <b>Tags:</b>
                             <br/>
-                            <div style={{marginLeft: '5px'}}>{tags.map(t => <div>{t}</div>)}</div>
+                            <div style={{marginLeft: '5px'}}>{tags.map(t => <div key={t._id}>{t.display}</div>)}</div>
                         </div>
                     ) : null}
                 </div>
@@ -39,7 +39,7 @@ class SectionsDisplay extends Component {
         let {sections} = this.props;
         return (
             <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                {sections.map(s => <SectionDisplay onHeightChange={this.sectionMeasured} minHeight={this.minHeight} section={s} />)}
+                {sections.map(s => <SectionDisplay key={s._id} onHeightChange={this.sectionMeasured} minHeight={this.minHeight} section={s} />)}
             </div>
         );
     }
@@ -53,16 +53,16 @@ export default class ListView extends Component {
         return (
             <div>
                 {workouts.map(w => {
-                    let tags = w.tags.map(t => workoutTagStore.tagLookup.get(t)).filter(t => t);
+                    let tags = workoutTagStore.projectTags(w.tags);
 
                     return (
-                        <div className='panel panel-default' style={{padding: '10px'}}>
+                        <div key={w._id} className='panel panel-default' style={{padding: '10px'}}>
                             <div>{w.name}</div>
                             <hr style={{marginTop: '5px'}} />
                             <div className="row">
                                 <div className="col-xs-12 col-sm-2">                                    
                                     <div>{w.date}</div>
-                                    <div>{tags.map(t => <div>{t}</div>)}</div>
+                                    <div>{tags.map(t => <div key={t._id}>{t.display}</div>)}</div>
                                 </div>
                                 <div className="col-xs-11 col-sm-9">
                                     <SectionsDisplay sections={w.sections} />
