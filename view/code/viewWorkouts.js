@@ -17,10 +17,11 @@ import ViewWorkoutsStore from './/viewWorkoutsStore';
 /**
  * @augments {Component<{workoutTagStore: typeof workoutTagStore, sectionTagStore: typeof sectionTagStore, store: ViewWorkoutsStore}, {}>}
  */
+@inject('workoutTagStore', 'sectionTagStore')
 @observer
 export default class Section extends Component {
     render() {
-        let {store} = this.props,
+        let {store, workoutTagStore, sectionTagStore} = this.props,
             WorkoutViewComponent = store.mode === 'table' ? TableView : ListView;
 
         return (
@@ -41,7 +42,7 @@ export default class Section extends Component {
                         <h6>Edit Workout</h6>
                     </Modal.Header>
                     <Modal.Body>
-                        <EditWorkout workout={store.editingWorkout} />
+                        <EditWorkout workoutTagStore={workoutTagStore} sectionTagStore={sectionTagStore} workout={store.editingWorkout} />
                     </Modal.Body>
                     <Modal.Footer>
                         <button type="button" className="btn btn-default" onClick={store.cancelEdit}>Close</button>

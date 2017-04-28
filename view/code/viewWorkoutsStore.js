@@ -9,7 +9,7 @@ const today = new Date();
 export default class ViewWorkoutsStore {
     @action editWorkout = workout => this.editingWorkout = workout;
     @action cancelEdit = workout => this.editingWorkout = null;
-    @observable editingWorkout = null;
+    @observable editingWorkout = new Workout();
     @observable workouts = [];
     @observable mode = 'table';
     @action setTable = props => this.mode = 'table';
