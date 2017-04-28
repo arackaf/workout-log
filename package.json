@@ -35,7 +35,7 @@
     "react-motion": "0.4.7",
     "react-select": "^1.0.0-rc.3",
     "regenerator": "0.8.36",
-    "simple-react-bootstrap": "^0.2.1-beta10",
+    "simple-react-bootstrap": "^0.2.1-beta12",
     "ws": "1.0.1"
   },
   "devDependencies": {
