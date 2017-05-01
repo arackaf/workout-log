@@ -67,7 +67,7 @@ export default class ListView extends Component {
                                     <SectionsDisplay sections={w.sections} />
                                 </div>
                             </div>
-                            <button onClick={() => editWorkout(w)}>Edit</button>
+                            {null && <button onClick={() => editWorkout(w)}>Edit</button>}
                         </div>
                     );
                 })}

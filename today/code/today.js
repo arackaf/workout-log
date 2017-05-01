@@ -71,7 +71,7 @@ export default class Section extends Component {
                         {currentWorkout.sections.map(s => <SectionDisplay section={s} />)}
                     </div>
                 </div>
-                <button onClick={() => editWorkout(currentWorkout)}>Edit</button>
+                {null && <button onClick={() => editWorkout(currentWorkout)}>Edit</button>}
             </div>
         );
     }
