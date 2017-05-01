@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script>
+            if (typeof fetch === 'undefined'){
+                var fetchPolyfill = document.createElement('script');
+                fetchPolyfill.setAttribute('src','/util/unfetch.js');
+                document.head.appendChild(fetchPolyfill);
+                fetchPolyfill.onload = function(){
+                    window.fetch = unfetch;
+                }
+            }
+        </script>        
+        <script type="text/javascript" src="/static/jquery.js"></script>
+        <script type="text/javascript" src="/static/jquery-ui.min.js"></script>
+
+        <link rel="stylesheet" href="/static/react-select.css">
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-booklist-build.css">
+        <link rel="stylesheet" href="/static/fontawesome/css/font-awesome-booklist-build.css">
+        <link rel="stylesheet" href="/static/jquery-ui.css">
+
+        <link rel="stylesheet" href="/static/app.css">
+
+    </head>
+    <body>
+        <div id='react_drop'></div>
+
+        <script type="text/javascript" src="/dist/today-bundle.js"></script>
+    </body>
+</html>

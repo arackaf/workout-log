@@ -42,6 +42,10 @@ app.get('/view', function (request, response) {
     response.sendFile(path.join(__dirname + '/view/view.htm'));
 });
 
+app.get('/today', function (request, response) {
+    response.sendFile(path.join(__dirname + '/today/today.htm'));
+});
+
 process.on('uncaughtException', error);
 process.on('unhandledRejection', error);
 process.on('exit', shutdown);
