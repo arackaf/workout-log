@@ -16,7 +16,7 @@ const AWS = require('aws-sdk');
 AWS.config.region = 'us-east-1';
 
 
-let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
+let s3bucket = new AWS.S3({params: {Bucket: 'tribe-uploads'}}),
                     params = {
                         Key: `temp/ab.txt`,
                         Body: "First upload test"
@@ -24,7 +24,7 @@ let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
 
 // s3bucket.upload(params, function (err) {
 //     if (err) console.log('error', err);
-//     else console.log(`http://tribe-gym-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
+//     else console.log(`http://tribe-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
 // });
 
 const hour = 3600000;
@@ -52,28 +52,50 @@ upload.on('end', function (fileInfo, req, res) {
     fs.readFile('./uploads/' + fileInfo.name, (err, data) => {
         if (err) return;
 
-        let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
+        let s3bucket = new AWS.S3({params: {Bucket: 'tribe-uploads'}}),
             params = {
-                Key: `temp/${fileInfo.name}`,
+                Key: `uploadVideos/${fileInfo.name}`,
                 Body: data
             };
 
             s3bucket.upload(params, function (err) {
                 if (err) rej(err);
-                else res(`http://my-library-cover-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
+                else {
+                    var elastictranscoder = new AWS.ElasticTranscoder({region: 'us-west-2'});
+
+                    var params = {
+                        PipelineId: '1493873425750-15u5g1', /* required */
+                        Inputs: [
+                            {
+                                Key: `uploadVideos/${fileInfo.name}`,
+                            },
+                        ],
+                        Output: {
+                            Key: 'transcoded/' + fileInfo.name,
+                            PresetId: '1351620000001-100020',
+                        },
+                        OutputKeyPrefix: 'iPhone/'
+                    };
+                    elastictranscoder.createJob(params, function(err, data) {
+                        if (err) console.log(err, err.stack); // an error occurred
+                        else     console.log('HOORAY', data);           // successful response
+                    });
+                    
+                    //res(`http://my-library-cover-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
+                }
             });
     });
 
-    let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
-                    params = {
-                        Key: `temp/ab.txt`,
-                        Body: "First upload test"
-                    };
+    // let s3bucket = new AWS.S3({params: {Bucket: 'tribe-uploads'}}),
+    //                 params = {
+    //                     Key: `temp/ab.txt`,
+    //                     Body: "First upload test"
+    //                 };
 
-    s3bucket.upload(params, function (err) {
-        if (err) console.log('error', err);
-        else console.log(`http://tribe-gym-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
-    });
+    // s3bucket.upload(params, function (err) {
+    //     if (err) console.log('error', err);
+    //     else console.log(`http://tribe-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
+    // });
 });
 app.use('/upload', upload.fileHandler());
 
