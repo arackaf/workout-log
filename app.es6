@@ -65,16 +65,17 @@ upload.on('end', function (fileInfo, req, res) {
 
                     var params = {
                         PipelineId: '1493873425750-15u5g1', /* required */
-                        Inputs: [
-                            {
-                                Key: `uploadVideos/${fileInfo.name}`,
-                            },
-                        ],
-                        Output: {
-                            Key: 'transcoded/' + fileInfo.name,
-                            PresetId: '1351620000001-100020',
-                        },
-                        OutputKeyPrefix: 'iPhone/'
+                        Inputs: [{
+                            Key: `uploadVideos/${fileInfo.name}`,
+                        }],
+                        OutputKeyPrefix: 'transcoded/',
+                        Outputs: [{
+                            Key: 'iPhone/' + fileInfo.name,
+                            PresetId: '1351620000001-100020'
+                        }, {
+                            Key: 'iPhone2/' + fileInfo.name,
+                            PresetId: '1351620000001-100020'
+                        }],
                     };
                     elastictranscoder.createJob(params, function(err, data) {
                         if (err) console.log(err, err.stack); // an error occurred
