@@ -18,7 +18,7 @@ AWS.config.region = 'us-east-1';
 
 let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
                     params = {
-                        Key: `temp/a.txt`,
+                        Key: `temp/ab.txt`,
                         Body: "First upload test"
                     };
 
@@ -49,7 +49,31 @@ upload.configure({
     uploadUrl: '/upload'
 });
 upload.on('end', function (fileInfo, req, res) {
-    debugger;
+    fs.readFile('./uploads/' + fileInfo.name, (err, data) => {
+        if (err) return;
+
+        let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
+            params = {
+                Key: `temp/${fileInfo.name}`,
+                Body: data
+            };
+
+            s3bucket.upload(params, function (err) {
+                if (err) rej(err);
+                else res(`http://my-library-cover-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
+            });
+    });
+
+    let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
+                    params = {
+                        Key: `temp/ab.txt`,
+                        Body: "First upload test"
+                    };
+
+    s3bucket.upload(params, function (err) {
+        if (err) console.log('error', err);
+        else console.log(`http://tribe-gym-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
+    });
 });
 app.use('/upload', upload.fileHandler());
 
