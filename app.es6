@@ -3,6 +3,7 @@ import 'regenerator/runtime';
 require('dotenv').config();
 
 const express = require('express');
+const upload = require('jquery-file-upload-middleware');
 const app = express();
 const path = require("path");
 const bodyParser = require('body-parser');
@@ -14,7 +15,6 @@ const compression = require('compression');
 const AWS = require('aws-sdk');
 AWS.config.region = 'us-east-1';
 
-console.log('elastic trans', typeof AWS.ElasticTranscoder);
 
 let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
                     params = {
@@ -22,10 +22,10 @@ let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
                         Body: "First upload test"
                     };
 
-s3bucket.upload(params, function (err) {
-    if (err) console.log('error', err);
-    else console.log(`http://tribe-gym-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
-});
+// s3bucket.upload(params, function (err) {
+//     if (err) console.log('error', err);
+//     else console.log(`http://tribe-gym-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
+// });
 
 const hour = 3600000;
 const rememberMeExpiration = 2 * 365 * 24 * hour; //2 years
@@ -44,6 +44,14 @@ app.use('/static/', express.static(__dirname + '/static/'));
 app.use('/node_modules/', express.static(__dirname + '/node_modules/'));
 app.use('/enter/', express.static(__dirname + '/enter/'));
 
+upload.configure({
+    uploadDir: __dirname + '/uploads',
+    uploadUrl: '/upload'
+});
+upload.on('end', function (fileInfo, req, res) {
+    debugger;
+});
+app.use('/upload', upload.fileHandler());
 
 var easyControllers = require('easy-express-controllers').easyControllers;
 easyControllers.createAllControllers(app);
@@ -63,6 +71,16 @@ app.get('/workoutSearch', function (request, response) {
 app.get('/today', function (request, response) {
     response.sendFile(path.join(__dirname + '/today/today.htm'));
 });
+
+// app.post('/upload/video', function (req, response) {
+//     debugger;
+//     if (req.fileUploaded) {
+//         console.log('size === ', req.fileUploaded.size);
+//     } else {
+//         console.log('no file found :(')
+//     }
+//     return response.send({ success: false, error: 'Max size is 500K' });
+// });
 
 process.on('uncaughtException', error);
 process.on('unhandledRejection', error);

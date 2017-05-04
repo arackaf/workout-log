@@ -49,7 +49,8 @@ module.exports = {
             "/view": "http://localhost:3000",
             "/today": "http://localhost:3000",
             "/workout": "http://localhost:3000",
-            "/tag": "http://localhost:3000"
+            "/tag": "http://localhost:3000",
+            "/upload/video": "http://localhost:3000"
         }
     }
 };
