@@ -1,5 +1,7 @@
 import 'regenerator/runtime';
 
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const path = require("path");
@@ -8,6 +10,22 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const compression = require('compression');
+
+const AWS = require('aws-sdk');
+AWS.config.region = 'us-east-1';
+
+console.log('elastic trans', typeof AWS.ElasticTranscoder);
+
+let s3bucket = new AWS.S3({params: {Bucket: 'tribe-gym-uploads'}}),
+                    params = {
+                        Key: `temp/a.txt`,
+                        Body: "First upload test"
+                    };
+
+s3bucket.upload(params, function (err) {
+    if (err) console.log('error', err);
+    else console.log(`http://tribe-gym-uploads.s3-website-us-east-1.amazonaws.com/${params.Key}`);
+});
 
 const hour = 3600000;
 const rememberMeExpiration = 2 * 365 * 24 * hour; //2 years
@@ -38,8 +56,8 @@ app.get('/enter', function (request, response) {
     response.sendFile(path.join(__dirname + '/enter/enter.htm'));
 });
 
-app.get('/view', function (request, response) {
-    response.sendFile(path.join(__dirname + '/view/view.htm'));
+app.get('/workoutSearch', function (request, response) {
+    response.sendFile(path.join(__dirname + '/workoutSearch/workoutSearch.htm'));
 });
 
 app.get('/today', function (request, response) {

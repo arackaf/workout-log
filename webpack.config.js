@@ -8,7 +8,7 @@ var noVisualization = process.env.NODE_ENV === 'production'
 module.exports = {
     entry: {
         enter: './enter/enter.js',
-        view: './view/view.js',
+        workoutSearch: './workoutSearch/workoutSearch.js',
         today: './today/today.js'
     },
     output: {
@@ -18,6 +18,7 @@ module.exports = {
         publicPath: 'dist/'
     },
     resolve: {
+        extensions: ['.js', '.jsx'],
         modules: [
             path.resolve('./'),
             path.resolve('./node_modules'),
@@ -26,7 +27,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
