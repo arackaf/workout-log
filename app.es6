@@ -100,8 +100,8 @@ upload.on('end', function (fileInfo, req, res) {
 });
 app.use('/upload', upload.fileHandler());
 
-var easyControllers = require('easy-express-controllers').easyControllers;
-easyControllers.createAllControllers(app);
+//var easyControllers = require('easy-express-controllers').easyControllers;
+//easyControllers.createAllControllers(app);
 
 app.get('/favicon.ico', function (request, response) {
     response.sendFile(path.join(__dirname + '/favicon.ico'));

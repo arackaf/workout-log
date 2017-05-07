@@ -59,7 +59,7 @@ export default class Section extends Component {
         let tags = workoutTagStore.projectTags(currentWorkout.tags);
 
         return (
-            <div key={currentWorkout._id} className='panel panel-default' style={{padding: '10px'}}>
+            <div className='panel panel-default' style={{padding: '10px'}}>
                 <div>{currentWorkout.name}</div>
                 <hr style={{marginTop: '5px'}} />
                 <div className="row">
