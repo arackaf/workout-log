@@ -26,7 +26,7 @@ class SectionDisplay extends Component {
                 <div style={{paddingTop: '5px', paddingLeft: '10px', paddingRight: '10px', minWidth: '100px', maxWidth: '250px'}}>
                     {section.name ? <div>{section.name}</div> : null}
                     {section.name ? <hr style={{marginTop: '1px'}} /> : null}
-                    {section.lines.map(line => <div>{line.content}</div>)}
+                    {section.lines.map((line, i) => <div key={i}>{line.content}</div>)}
                     {section.notes ? <div><br />{section.notes}</div> : null}
                     {tags.length ? (
                         <div>
@@ -68,7 +68,7 @@ export default class Section extends Component {
                         <div>{tags.map(t => <div key={t._id}>{t.display}</div>)}</div>
                     </div>
                     <div className="col-xs-11 col-sm-9">
-                        {currentWorkout.sections.map(s => <SectionDisplay section={s} />)}
+                        {currentWorkout.sections.map(s => <SectionDisplay key={s._id} section={s} />)}
                     </div>
                 </div>
                 {null && <button onClick={() => editWorkout(currentWorkout)}>Edit</button>}
