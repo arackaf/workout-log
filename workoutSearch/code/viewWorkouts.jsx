@@ -37,18 +37,20 @@ export default class Section extends Component {
                         <WorkoutViewComponent editWorkout={store.editWorkout} workouts={store.workouts} />
                     </div>
                 </div>
-                <Modal className="fade" show={store.editingWorkout} onHide={store.cancelEdit}>
-                    <Modal.Header>
-                        <h6>Edit Workout</h6>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <EditWorkout workoutTagStore={workoutTagStore} sectionTagStore={sectionTagStore} workout={store.editingWorkout} />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button type="button" className="btn btn-default" onClick={store.cancelEdit}>Close</button>
-                        <button type="button" className="btn btn-primary">Save changes</button>
-                    </Modal.Footer>
-                </Modal>
+                {store.editingWorkout ?
+                    <Modal className="fade" show={store.editingWorkout} onHide={store.cancelEdit}>
+                        <Modal.Header>
+                            <h2>Edit Workout</h2>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <EditWorkout workoutTagStore={workoutTagStore} sectionTagStore={sectionTagStore} workout={store.editingWorkout} />
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button type="button" className="btn btn-default" onClick={store.cancelEdit}>Close</button>
+                            <button type="button" className="btn btn-primary">Save changes</button>
+                        </Modal.Footer>
+                    </Modal> : null
+                }
             </div>
         );
     }
