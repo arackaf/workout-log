@@ -165,6 +165,26 @@ export const sections = [
             "content" : "5 sets of 1 Clean & 1 split jerks"
         }
     ]
+},
+
+{
+    "_id" : "58f534b97c0a657c1a5f6265",
+    "name" : "Death",
+    "notes" : "",
+    "tags" : [ 
+        "58f534b97c0a657c1a5f6264"
+    ],
+    "lines" : [ 
+        {
+            "content" : "Partner Abs (20)"
+        }, 
+        {
+            "content" : "6 Cluster (Clean & Thruster)"
+        }, 
+        {
+            "content" : "10 T2B"
+        }
+    ]
 }
 ];
 
