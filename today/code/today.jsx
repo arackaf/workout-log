@@ -14,12 +14,11 @@ import TodayStore from './todayStore';
 
 const panelStyles = { border: '1px solid #ddd', borderRadius: '4px' }
 
-@inject('sectionTagStore')
 @observer
 class SectionDisplay extends Component {
     render() {
-        let {section, sectionTagStore} = this.props,
-            tags = sectionTagStore.projectTags(section.tags);
+        let {section} = this.props,
+            {tags} = section;
 
         return (
             <div style={{marginRight: '3px', marginBottom: '5px', ...panelStyles}}>
@@ -33,7 +32,7 @@ class SectionDisplay extends Component {
                             <br />
                             <b>Tags:</b>
                             <br/>
-                            <div style={{marginLeft: '5px'}}>{tags.map(t => <div key={t._id}>{t.display}</div>)}</div>
+                            <div style={{marginLeft: '5px'}}>{tags.map(t => <div key={t.value}>{t.label}</div>)}</div>
                         </div>
                     ) : null}
                 </div>
@@ -43,20 +42,19 @@ class SectionDisplay extends Component {
 }
 
 /**
- * @augments {Component<{workoutTagStore: typeof workoutTagStore, sectionTagStore: typeof sectionTagStore, store: TodayStore}, {}>}
+ * @augments {Component<{store: TodayStore}, {}>}
  */
-@inject('workoutTagStore')
 @observer
 export default class Section extends Component {
     render() {
-        let {store, workoutTagStore} = this.props;
+        let {store} = this.props;
         let currentWorkout = store.currentWorkout;
 
         if (!currentWorkout){
             return null;
         }
 
-        let tags = workoutTagStore.projectTags(currentWorkout.tags);
+        let {tags} = currentWorkout;
 
         return (
             <div key={currentWorkout._id} className='panel panel-default' style={{padding: '10px'}}>
@@ -65,7 +63,7 @@ export default class Section extends Component {
                 <div className="row">
                     <div className="col-xs-12 col-sm-2">                                    
                         <div>{currentWorkout.date}</div>
-                        <div>{tags.map(t => <div key={t._id}>{t.display}</div>)}</div>
+                        <div>{tags.map(t => <div key={t.value}>{t.label}</div>)}</div>
                     </div>
                     <div className="col-xs-11 col-sm-9">
                         {currentWorkout.sections.map(s => <SectionDisplay section={s} />)}
