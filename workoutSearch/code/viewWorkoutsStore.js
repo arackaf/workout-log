@@ -11,9 +11,9 @@ import {workouts, sections} from 'util/staticData/data';
 export default class ViewWorkoutsStore {
     @action editWorkout = workout => this.editingWorkout = workout;
     @action cancelEdit = workout => this.editingWorkout = null;
-    @observable editingWorkout = null; //new Workout();
+    @observable editingWorkout = null;
     @observable workouts = [];
-    @observable mode = 'table';
+    @observable mode = 'list';
     @action setTable = props => this.mode = 'table';
     @action setList = props => this.mode = 'list';
 

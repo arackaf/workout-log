@@ -52,7 +52,15 @@ export default class Workout {
 
     static from(workoutResult){
         let result = new Workout();
-        ['_id', 'name', 'date', 'notes', 'tags'].forEach(prop => result[prop] = workoutResult[prop]);
+        ['_id', 'name', 'date', 'notes'].forEach(prop => result[prop] = workoutResult[prop]);
+
+        let tags = workoutResult.tags.map(_id => ({value: _id}));
+        tags.forEach(t => {
+            let label = workoutTagStore.tagLookup.get(t.value);
+            t.label = label;
+        });
+        result.tags = tags;
+
         result.sections = workoutResult.sections.map(s => Section.from(s));
         return result;
     }

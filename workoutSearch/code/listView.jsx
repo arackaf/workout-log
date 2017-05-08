@@ -9,7 +9,7 @@ const panelStyles = { border: '1px solid #ddd', borderRadius: '4px' }
 class SectionDisplay extends Component {
     render() {
         let {section, sectionTagStore} = this.props,
-            tags = sectionTagStore.projectTags(section.tags);
+            {tags} = section;
 
         return (
             <div style={{marginRight: '3px', marginBottom: '5px', ...panelStyles}}>
@@ -23,7 +23,7 @@ class SectionDisplay extends Component {
                             <br />
                             <b>Tags:</b>
                             <br/>
-                            <div style={{marginLeft: '5px'}}>{tags.map(t => <div key={t._id}>{t.display}</div>)}</div>
+                            <div style={{marginLeft: '5px'}}>{tags.map(t => <div key={t._id}>{t.label}</div>)}</div>
                         </div>
                     ) : null}
                 </div>
@@ -52,7 +52,7 @@ export default class ListView extends Component {
         return (
             <div>
                 {workouts.map(w => {
-                    let tags = workoutTagStore.projectTags(w.tags);
+                    let {tags} = w;
 
                     return (
                         <div key={w._id} className='panel panel-default' style={{padding: '10px'}}>
@@ -61,13 +61,13 @@ export default class ListView extends Component {
                             <div className="row">
                                 <div className="col-xs-12 col-sm-2">                                    
                                     <div>{w.date}</div>
-                                    <div>{tags.map(t => <div key={t._id}>{t.display}</div>)}</div>
+                                    <div>{tags.map(t => <div key={t.value}>{t.label}</div>)}</div>
                                 </div>
                                 <div className="col-xs-11 col-sm-9">
                                     <SectionsDisplay sections={w.sections} />
                                 </div>
                             </div>
-                            {null && <button onClick={() => editWorkout(w)}>Edit</button>}
+                            {true && <button onClick={() => editWorkout(w)}>Edit</button>}
                         </div>
                     );
                 })}

@@ -22,7 +22,15 @@ export default class Section {
 
     static from(sectionResult){
         let result = new Section();
-        ['_id', 'name', 'notes', 'tags'].forEach(prop => result[prop] = sectionResult[prop]);
+        ['_id', 'name', 'notes'].forEach(prop => result[prop] = sectionResult[prop]);
+
+        let orig = sectionResult.tags.concat();
+        let tags = sectionResult.tags.map(_id => ({value: _id}));
+        tags.forEach(t => {
+            let label = sectionTagStore.tagLookup.get(t.value);
+            t.label = label;
+        });
+        result.tags = tags;
         result.lines = sectionResult.lines.map(l => {
             let newLine = new Line();
             newLine.content = l.content;
