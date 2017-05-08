@@ -36,6 +36,7 @@ passport.use(new Strategy({
     // be associated with a user record in the application's database, which
     // allows for account linking and authentication with other identity
     // providers.
+    console.log('in fb callback', profile, JSON.stringify(profile));
     return cb(null, profile);
   }));
 
@@ -77,7 +78,7 @@ app.use(passport.session());
 
 passport.serializeUser(function(user, cb) {
     console.log(user, JSON.stringify(user));
-  cb(null, user);
+  cb(null, {id: user.id, name: user.name, admin: false, confirmed: true});
 });
 
 passport.deserializeUser(function(obj, cb) {
@@ -148,6 +149,7 @@ app.get('/favicon.ico', function (request, response) {
 });
 
 app.get('/enter', connectEnsure.ensureLoggedIn(), function (request, response) {
+    console.log('logged in user from enter', request.user, JSON.stringify(request.user));
     response.sendFile(path.join(__dirname + '/enter/enter.htm'));
 });
 
