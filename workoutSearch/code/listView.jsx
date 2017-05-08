@@ -9,7 +9,7 @@ const panelStyles = { border: '1px solid #ddd', borderRadius: '4px' }
 class SectionDisplay extends Component {
     render() {
         let {section, sectionTagStore} = this.props,
-            tags = sectionTagStore.projectTags(section.tags);
+            {tags} = section;
 
         return (
             <div style={{marginRight: '3px', marginBottom: '5px', ...panelStyles}}>
@@ -23,7 +23,7 @@ class SectionDisplay extends Component {
                             <br />
                             <b>Tags:</b>
                             <br/>
-                            <div style={{marginLeft: '5px'}}>{tags.map(t => <div key={t._id}>{t.display}</div>)}</div>
+                            <div style={{marginLeft: '5px'}}>{tags.map(t => <div key={t._id}>{t.label}</div>)}</div>
                         </div>
                     ) : null}
                 </div>
