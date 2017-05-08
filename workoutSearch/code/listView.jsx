@@ -52,7 +52,7 @@ export default class ListView extends Component {
         return (
             <div>
                 {workouts.map(w => {
-                    let tags = workoutTagStore.projectTags(w.tags);
+                    let {tags} = w;
 
                     return (
                         <div key={w._id} className='panel panel-default' style={{padding: '10px'}}>
@@ -61,7 +61,7 @@ export default class ListView extends Component {
                             <div className="row">
                                 <div className="col-xs-12 col-sm-2">                                    
                                     <div>{w.date}</div>
-                                    <div>{tags.map(t => <div key={t._id}>{t.display}</div>)}</div>
+                                    <div>{tags.map(t => <div key={t.value}>{t.label}</div>)}</div>
                                 </div>
                                 <div className="col-xs-11 col-sm-9">
                                     <SectionsDisplay sections={w.sections} />
