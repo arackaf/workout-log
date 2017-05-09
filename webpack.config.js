@@ -50,6 +50,7 @@ module.exports = {
             "/today": "http://localhost:3000",
             "/workout": "http://localhost:3000",
             "/login": "http://localhost:3000",
+            "/logout": "http://localhost:3000",
             "/tag": "http://localhost:3000",
             "/upload/video": "http://localhost:3000"
         }

@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const compression = require('compression');
 const connectEnsure = require('connect-ensure-login');
+const UserDao = require('./dataAccess/userDao').default;
 
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
@@ -36,9 +37,16 @@ passport.use(new Strategy({
     // be associated with a user record in the application's database, which
     // allows for account linking and authentication with other identity
     // providers.
-    console.log('in fb callback', profile, JSON.stringify(profile));
-    return cb(null, profile);
-  }));
+
+    let userDao = new UserDao();
+    Promise
+        .resolve(userDao.login(profile.id, profile.displayName))
+        .then(user => {
+            console.log('in fb callback', profile, JSON.stringify(profile));
+            cb(null, profile);
+        });
+  })
+);
 
 const AWS = require('aws-sdk');
 AWS.config.region = 'us-east-1';
@@ -77,7 +85,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, cb) {
-    console.log(user, JSON.stringify(user));
   cb(null, {id: user.id, name: user.name, admin: false, confirmed: true});
 });
 
@@ -171,13 +178,12 @@ app.get('/today', function (request, response) {
 //     return response.send({ success: false, error: 'Max size is 500K' });
 // });
 
-app.get('/login',
-  function(req, res){ res.sendFile(path.join(__dirname + '/login/login.htm')); }
-);
+app.get('/login', passport.authenticate('facebook'));
 
-app.get('/login/facebook',
-  passport.authenticate('facebook')
-);
+app.get('/logout', function(request, response){
+    request.logout();
+    response.redirect('/');
+});
 
 app.get('/login/facebook/return', 
   passport.authenticate('facebook', { failureRedirect: '/login' }),
