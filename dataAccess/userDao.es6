@@ -8,9 +8,11 @@ export default class UserDAO extends DAO {
         let user = await db.collection('users').findOne({ _id: '' + id });
 
         if (!user){
-            let newUser = { _id: id, id, displayName };
+            let newUser = { _id: id, id, displayName, confirmed: true };
             await db.collection('users').insert(newUser);
             return newUser;
+        } else {
+            return user;
         }
     }
 }

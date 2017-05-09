@@ -43,7 +43,7 @@ passport.use(new Strategy({
         .resolve(userDao.login(profile.id, profile.displayName))
         .then(user => {
             console.log('in fb callback', profile, JSON.stringify(profile));
-            cb(null, profile);
+            cb(null, user);
         });
   })
 );
@@ -85,7 +85,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, cb) {
-  cb(null, {id: user.id, name: user.name, admin: false, confirmed: true});
+  cb(null, {id: user.id, name: user.name, admin: user.admin, confirmed: true});
 });
 
 passport.deserializeUser(function(obj, cb) {
@@ -157,7 +157,11 @@ app.get('/favicon.ico', function (request, response) {
 
 app.get('/enter', connectEnsure.ensureLoggedIn(), function (request, response) {
     console.log('logged in user from enter', request.user, JSON.stringify(request.user));
-    response.sendFile(path.join(__dirname + '/enter/enter.htm'));
+    if (request.user.admin){
+        response.sendFile(path.join(__dirname + '/enter/enter.htm'));
+    } else {
+        response.redirect('/today');
+    }
 });
 
 app.get('/workoutSearch', function (request, response) {
